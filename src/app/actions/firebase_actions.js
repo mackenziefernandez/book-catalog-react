@@ -4,6 +4,8 @@ import {
   REGISTER_FIREBASE_USER,
   LOGIN_FIREBASE_USER,
   FETCH_FIREBASE_USER,
+  FETCH_BOOKS,
+  ADD_BOOK,
   UPDATE_FIREBASE_USER,
   CHANGE_FIREBASE_USER_PASSWORD,
   FIREBASE_PASSWORD_RESET_EMAIL,
@@ -39,6 +41,22 @@ export function fetchUser() {
   const request = FireBaseTools.fetchUser();
   return {
     type: FETCH_FIREBASE_USER,
+    payload: request
+  }
+}
+
+export function fetchBooks() {
+  const request = FireBaseTools.fetchBooks();
+  return {
+    type: FETCH_BOOKS,
+    payload: request
+  }
+}
+
+export function addBook(book) {
+  const request = FireBaseTools.addBook(book);
+  return {
+    type: ADD_BOOK,
     payload: request
   }
 }

@@ -94,6 +94,36 @@ var FireBaseTools = {
   },
 
   /**
+   * Retrieve the current user (Promise)
+   * @returns {Promise}
+   */
+  fetchBooks: () => {
+    return new Promise((resolve, reject) => {
+      const books = firebaseApp.child('books').on(books => {
+        unsub();
+        resolve(books);
+      }, error => {
+        reject(error);
+      })
+    })
+  },
+
+  /**
+   * Retrieve the current user (Promise)
+   * @returns {Promise}
+   */
+  addBook: (book) => {
+    return firebaseApp.child('books').push(book).then(book => {
+      return book;
+    }).catch(error => {
+      return {
+        errorCode: error.code,
+        errorMessage: error.message
+      }
+    });
+  },
+
+  /**
    * Log the user in using email and password
    *
    * @param user
