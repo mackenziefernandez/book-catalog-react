@@ -14,11 +14,9 @@ class BookList extends React.Component {
   }
 
   render() {
-    console.log("props (booklist)", this.props.books);
     return (
       <div>
-        {this.props.books ? this.getBooks() : "loading ..."
-        }
+        {this.props.books ? this.getBooks() : "loading ..."}
       </div>
     );
 	}
