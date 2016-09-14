@@ -94,14 +94,13 @@ var FireBaseTools = {
   },
 
   /**
-   * Retrieve the current user (Promise)
+   * Retrieve the users books (Promise)
    * @returns {Promise}
    */
   fetchBooks: () => {
     return new Promise((resolve, reject) => {
-      const books = firebaseApp.child('books').on(books => {
-        unsub();
-        resolve(books);
+      const bookSub = firebaseDb.ref('books').limitToFirst(10).on("value", books => {
+        resolve(books.val());
       }, error => {
         reject(error);
       })
@@ -109,11 +108,11 @@ var FireBaseTools = {
   },
 
   /**
-   * Retrieve the current user (Promise)
+   * Adds book to books endpoint (Promise)
    * @returns {Promise}
    */
   addBook: (book) => {
-    return firebaseApp.child('books').push(book).then(book => {
+    return firebaseDb.ref('books').push(book).then(book => {
       return book;
     }).catch(error => {
       return {

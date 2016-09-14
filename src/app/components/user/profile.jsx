@@ -38,7 +38,7 @@ class UserProfile extends Component {
     if (!this.props.currentUser) {
       return <Loading/>
     }
-
+    console.log(this.props.currentUser);
     return (
       <div className="col-md-6">
         <form id="frmProfile" role="form" onSubmit={this.onFormSubmit}>

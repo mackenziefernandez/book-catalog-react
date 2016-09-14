@@ -1,5 +1,6 @@
 import React from 'react';
+import BookList from './books/bookList';
 
 export default () => {
-  return <div> Get Ready for books! </div>;
+  return <BookList />;
 };
