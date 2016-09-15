@@ -54,25 +54,12 @@ class UserLogin extends Component {
           <p>
             {this.state.message}
           </p>
-          <h2>Login</h2>
-          <div className="form-group">
-            <label htmlFor="txtEmail">Email address</label>
-            <input type="email" className="form-control" id="txtEmail" ref="email" placeholder="Enter email"
-                   name="email"/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="txtPass">Password</label>
-            <input type="password" className="form-control" id="txtPass" ref="password" placeholder="Password"
-                   name="password"/>
-          </div>
-          <button type="submit" className="btn btn-default btn-block">Login</button>
-          <br/>
-          <h5><Link to="/reset">Forgot password?</Link></h5>
+
 
           <h4>Login with</h4>
           <a href="#" className="btn btn-primary bt-social" onClick={()=> {
-            this.loginWithProvider("facebook")
-          }} data-provider="facebook">Facebook</a>
+            this.loginWithProvider("google")
+          }} data-provider="google">Google</a>
           {/*
            <a href="#" className="btn btn-info bt-social" data-provider="twitter">Twitter</a>
 
