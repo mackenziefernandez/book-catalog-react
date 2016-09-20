@@ -43,6 +43,18 @@ class App extends Component {
 
   }
 
+  renderAdminMenu(currentUser) {
+    if (currentUser && currentUser.uid == 'zjZzerHEdqSXFwyi0QOH16hdoNu2') {
+      return (
+        <ul className="nav navbar-nav">
+          <li><Link to="/add"> Add</Link></li>
+        </ul>
+      )
+    } else {
+      return;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -59,12 +71,9 @@ class App extends Component {
 
             </div>
             <nav className="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-              <ul className="nav navbar-nav">
-                <li><Link to="/add"> Add</Link></li>
-                ,
-              </ul>
+              { this.renderAdminMenu(this.props.currentUser) }
               <ul className="nav navbar-nav navbar-right">
-                {this.renderUserMenu(this.props.currentUser)}
+                { this.renderUserMenu(this.props.currentUser) }
               </ul>
             </nav>
           </div>
