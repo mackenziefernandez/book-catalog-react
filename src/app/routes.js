@@ -8,6 +8,7 @@ import UserLogout from './components/user/logout';
 import UserRegister from './components/user/register';
 import UserProfile from './components/user/profile';
 import ResetPassword from './components/user/reset_password';
+import AddBook from './components/admin/add_book';
 
 
 export default (
@@ -18,6 +19,7 @@ export default (
     <Route path="/register" component={UserRegister}/>
     <Route path="/reset" component={ResetPassword}/>
     <Route path="/profile" component={UserProfile}/>
+    <Route path="/add" component={AddBook}/>
   </Route>
 
 );
