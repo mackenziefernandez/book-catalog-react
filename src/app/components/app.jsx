@@ -48,6 +48,7 @@ class App extends Component {
       return (
         <ul className="nav navbar-nav">
           <li><Link to="/add"> Add</Link></li>
+          <li><Link to="/stats"> Stats</Link></li>
         </ul>
       )
     } else {

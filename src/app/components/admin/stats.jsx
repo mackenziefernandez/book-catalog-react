@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchUser, updateUser}  from '../../actions/firebase_actions';
 import Loading  from '../helpers/loading';
-import ChangePassword from './change_password';
 
 class Stats extends Component {
 
@@ -42,7 +41,7 @@ class Stats extends Component {
     return (
       <div className="col-md-6">
         <form id="frmProfile" role="form" onSubmit={this.onFormSubmit}>
-          <h2>User Profile Page</h2>
+          <h2>Book Stats Page!</h2>
           <p>{this.state.message}</p>
           <br />
           <div className="form-group">
@@ -58,7 +57,6 @@ class Stats extends Component {
           </div>
           <button type="submit" className="btn btn-primary">Update</button>
         </form>
-        <ChangePassword/>
       </div>
     )
   }
@@ -76,4 +74,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(Stats);
