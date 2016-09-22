@@ -1,8 +1,8 @@
 .bookList {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .book {
-  display: table-cell;
-  vertical-align: middle;
+  padding: 1vw;
 }
