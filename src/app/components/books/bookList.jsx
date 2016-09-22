@@ -3,6 +3,7 @@ import Book from './book';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchBooks}  from '../../actions/firebase_actions';
+require('../../styles/book.scss');
 
 class BookList extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class BookList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='bookList'>
         {this.props.books ? this.getBooks() : "loading ..."}
       </div>
     );
@@ -26,7 +27,7 @@ class BookList extends React.Component {
     for (var bookKey in this.props.books) {
       const book = this.props.books[bookKey];
       bookArray.push(
-        <Book {...book} />
+        <Book className='book' {...book} />
       );
     }
     return bookArray;

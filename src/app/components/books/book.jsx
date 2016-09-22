@@ -4,9 +4,8 @@ export default class Book extends React.Component {
 
   render() {
     const { title, authorFirst, authorLast, length, imageURL, status } = this.props;
-    console.log("props", this.props);
     return (
-      <div className="side-by-side">
+      <div>
         <img className="bookCoverList" src={imageURL} />
         <div>
           <p>{title}</p>

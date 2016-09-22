@@ -1,0 +1,8 @@
+.bookList {
+  display: flex;
+  flex-wrap: wrap;
+}
+.book {
+  display: table-cell;
+  vertical-align: middle;
+}
