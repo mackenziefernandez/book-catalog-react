@@ -1,8 +1,11 @@
 .bookList {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 .book {
   padding: 1vw;
+}
+.bookCoverList {
+  max-height: 200px;
+  width: auto;
 }
