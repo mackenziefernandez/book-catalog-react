@@ -26,7 +26,7 @@ class BookList extends React.Component {
     for (var bookKey in this.props.books) {
       const book = this.props.books[bookKey];
       bookArray.push(
-        <Book authorFirst={book.authorFirst} imageURL={book.imageURL} authorLast={book.authorLast} title={book.title} length={book.length} />
+        <Book {...book} />
       );
     }
     return bookArray;
