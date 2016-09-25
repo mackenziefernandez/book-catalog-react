@@ -8,6 +8,7 @@ export default class Book extends React.Component {
       <div className='book'>
         <img className="bookCoverList" src={imageURL} />
         <div>
+          {authorFirst} {authorLast}
           {!status && <button type="submit" className="btn btn-default btn-block">Mark as read</button>}
         </div>
       </div>

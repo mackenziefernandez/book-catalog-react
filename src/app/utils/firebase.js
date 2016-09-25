@@ -99,7 +99,7 @@ var FireBaseTools = {
    */
   fetchBooks: () => {
     return new Promise((resolve, reject) => {
-      const bookSub = firebaseDb.ref('books').limitToFirst(10).on("value", books => {
+      const bookSub = firebaseDb.ref('books').orderByChild('authorLast').on("value", books => {
         resolve(books.val());
       }, error => {
         reject(error);
