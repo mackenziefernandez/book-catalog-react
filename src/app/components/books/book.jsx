@@ -2,6 +2,10 @@ import React from 'react';
 
 export default class Book extends React.Component {
 
+  test(id) {
+    console.log(id);
+  }
+
   render() {
     const { title, authorFirst, authorLast, length, imageURL, status } = this.props;
     return (
@@ -9,7 +13,7 @@ export default class Book extends React.Component {
         <img className="bookCoverList" src={imageURL} />
         <div>
           {authorFirst} {authorLast}
-          {!status && <button type="submit" className="btn btn-default btn-block">Mark as read</button>}
+          {!status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.test(this.props.id)}>Mark as read</button>}
         </div>
       </div>
 		)
