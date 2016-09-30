@@ -27,7 +27,7 @@ class BookList extends React.Component {
     for (var bookKey in this.props.books) {
       const book = this.props.books[bookKey];
       bookArray.push(
-        <Book {...book} id={bookKey} />
+        <Book { ...book } key={ bookKey } id={ bookKey } />
       );
     }
     return bookArray;

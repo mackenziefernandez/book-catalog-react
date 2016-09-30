@@ -123,6 +123,26 @@ var FireBaseTools = {
   },
 
   /**
+   * Updates book status for a given book id (Promise)
+   * @returns {Promise}
+   */
+  markRead: (id) => {
+    console.log('trying to update book status for id: ', id);
+    const today = new Date();
+
+    const dateFinished =  `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
+
+    return firebaseDb.ref('books').child(id).update({ dateFinished: dateFinished, status: true }).then(() => {
+      return {};
+    }).catch(error => {
+      return {
+        errorCode: error.code,
+        errorMessage: error.message
+      }
+    });
+  },
+
+  /**
    * Log the user in using email and password
    *
    * @param user

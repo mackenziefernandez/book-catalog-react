@@ -14,6 +14,7 @@ class App extends Component {
   }
 
   logOut() {
+    debugger;
     this.props.logoutUser().then(data=> {
       // reload props from reducer
       this.props.fetchUser();
