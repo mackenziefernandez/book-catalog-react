@@ -3,6 +3,7 @@ import Book from './book';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchBooks}  from '../../actions/firebase_actions';
+import ScrollToTop from 'react-scroll-up';
 require('../../styles/book.scss');
 
 class BookList extends React.Component {
@@ -18,6 +19,9 @@ class BookList extends React.Component {
     return (
       <div className='bookList'>
         {this.props.books ? this.getBooks() : "loading ..."}
+        <ScrollToTop showUnder={260}>
+          <span>Scroll To Top</span>
+        </ScrollToTop>
       </div>
     );
 	}
