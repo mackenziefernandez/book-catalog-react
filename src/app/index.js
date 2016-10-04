@@ -8,14 +8,21 @@ import ReduxPromise from 'redux-promise';
 import reducers from './reducers';
 import routes from './routes'
 
+import { loadState, saveState } from './utils/localStorage';
+
 // for bundling your styles
 import './bundle.scss';
 
+const persistedState = loadState();
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const store = createStoreWithMiddleware(reducers, persistedState);
 
+store.subscribe(() => {
+  saveState(store.getState());
+})
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <Router history={browserHistory} routes={routes}>
     </Router>
   </Provider>
