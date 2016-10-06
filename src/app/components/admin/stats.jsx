@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import firebase from '../../utils/firebase';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {fetchBooks}  from '../../actions/firebase_actions';
 import {fetchUser, updateUser}  from '../../actions/firebase_actions';
 import Loading  from '../helpers/loading';
 
@@ -10,6 +11,7 @@ class Stats extends Component {
   constructor(props) {
     super(props);
     this.props.fetchUser();
+    this.props.fetchBooks();
     this.state = {
       message: ''
     }
@@ -28,7 +30,6 @@ class Stats extends Component {
           this.setState({
             message: "Updated successfuly!"
           })
-
       }
     )
   }
@@ -37,26 +38,21 @@ class Stats extends Component {
     if (!this.props.currentUser) {
       return <Loading/>
     }
-    console.log(this.props.currentUser);
+    Object.filter = (obj, predicate) =>
+      Object.keys(obj)
+            .filter( key => predicate(obj[key]) )
+            .reduce( (res, key) => (res[key] = obj[key], res), {} );
+
+
+    const unread = Object.filter(this.props.books, book => book.status === false);
+    const numUnread = Object.keys(unread).length;
+    const numBooks = Object.keys(this.props.books).length;
     return (
       <div className="col-md-6">
-        <form id="frmProfile" role="form" onSubmit={this.onFormSubmit}>
-          <h2>Book Stats Page!</h2>
-          <p>{this.state.message}</p>
-          <br />
-          <div className="form-group">
-            <label htmlFor="email">Email: </label>
-            <input type="text" defaultValue={this.props.currentUser.email}
-                   className="form-control" id="email" ref="email" placeholder="Email" name="email"/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="displayName">Display name: </label>
-            <input type="text" defaultValue={this.props.currentUser.displayName}
-                   className="form-control" ref="displayName" id="displayName" placeholder="Display name"
-                   name="displayName"/>
-          </div>
-          <button type="submit" className="btn btn-primary">Update</button>
-        </form>
+        <h2>Book Stats Page!</h2>
+        <p>{numBooks} total books</p>
+        <p>{numUnread} unread books</p>
+        <p>{((numBooks - numUnread)/numBooks)*100}% of books read</p>
       </div>
     )
   }
@@ -65,12 +61,12 @@ class Stats extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchUser, updateUser}, dispatch);
+  return bindActionCreators({fetchUser, updateUser, fetchBooks}, dispatch);
 }
 
 
 function mapStateToProps(state) {
-  return {currentUser: state.currentUser};
+  return {currentUser: state.currentUser, books: state.books};
 }
 
 

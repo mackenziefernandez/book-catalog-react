@@ -10,6 +10,7 @@ import UserProfile from './components/user/profile';
 import ResetPassword from './components/user/reset_password';
 import AddBook from './components/admin/add_book';
 import Stats from './components/admin/stats';
+import UnreadBooks from './components/admin/unread_books';
 
 
 export default (
@@ -22,6 +23,7 @@ export default (
     <Route path="/profile" component={UserProfile}/>
     <Route path="/add" component={AddBook}/>
     <Route path="/stats" component={Stats}/>
+    <Route path="/unread" component={UnreadBooks}/>
   </Route>
 
 );

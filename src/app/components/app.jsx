@@ -50,6 +50,7 @@ class App extends Component {
         <ul className="nav navbar-nav">
           <li><Link to="/add"> Add</Link></li>
           <li><Link to="/stats"> Stats</Link></li>
+          <li><Link to="/unread"> Unread Books</Link></li>
         </ul>
       )
     } else {

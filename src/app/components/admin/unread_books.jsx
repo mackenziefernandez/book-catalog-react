@@ -1,70 +1,84 @@
 import React, {Component} from 'react';
-import {browserHistory} from 'react-router';
+import firebase from '../../utils/firebase';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {registerUser} from '../../actions/firebase_actions';
+import {fetchBooks}  from '../../actions/firebase_actions';
+import {fetchUser, updateUser}  from '../../actions/firebase_actions';
+import Loading  from '../helpers/loading';
+import Book from '../books/book';
 
 class UnreadBooks extends Component {
 
   constructor(props) {
     super(props);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.props.fetchUser();
+    this.props.fetchBooks();
     this.state = {
       message: ''
     }
-
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-
     var email = this.refs.email.value;
-    var password = this.refs.password.value;
-    this.props.registerUser({email: email, password: password}).then(data => {
+    var displayName = this.refs.displayName.value;
+    this.props.updateUserProfile({email: email, displayName: displayName}).then(data => {
 
         if (data.payload.errorCode)
-          this.setState({message: data.payload.errorMessage});
+          this.setState({message: data.payload.errorMessage})
         else
-          browserHistory.push('/profile');
-
+          this.setState({
+            message: "Updated successfuly!"
+          })
       }
     )
-
   }
 
   render() {
+    if (!this.props.currentUser) {
+      return <Loading/>
+    }
+
+    Object.filter = (obj, predicate) =>
+      Object.keys(obj)
+            .filter( key => predicate(obj[key]) )
+            .reduce( (res, key) => (res[key] = obj[key], res), {} );
+
+    const beingRead = Object.filter(this.props.books, book => book.status === false);
     return (
-      <div className="col-md-4">
-        <form id="frmRegister" role="form" onSubmit={this.onFormSubmit}>
-          <p>{this.state.message}</p>
-          <h2>Register</h2>
-          <div className="form-group">
-            <label htmlFor="txtRegEmail">Email address</label>
-            <input type="email" className="form-control" ref="email" id="txtEmail" placeholder="Enter email"
-                   name="email"/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="txtRegPass">Password</label>
-            <input type="password" className="form-control" ref="password" id="txtPass" placeholder="Password"
-                   name="password"/>
-          </div>
-          <button type="submit" className="btn btn-default">Register</button>
-        </form>
+      <div className="col-md-6">
+        <h2>Unread Books</h2>
+        <p>{ Object.keys(beingRead).length } unread books</p>
+        { this.getBooks(beingRead) }
       </div>
     )
   }
 
+  getBooks(books) {
+    let bookArray = [];
+    for (var bookKey in books) {
+      const book = books[bookKey];
+      bookArray.push(
+        <Book { ...book } key={ bookKey } id={ bookKey } />
+      );
+    }
+    return bookArray;
+  }
+
+
+
 }
+
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    registerUser
-  }, dispatch);
+  return bindActionCreators({fetchUser, updateUser, fetchBooks}, dispatch);
 }
+
 
 function mapStateToProps(state) {
-  return {currentUser: state.currentUser};
-
+  return {currentUser: state.currentUser, books: state.books};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserRegister);
+
+export default connect(mapStateToProps, mapDispatchToProps)(UnreadBooks);
