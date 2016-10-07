@@ -1,7 +1,8 @@
 import {
   FETCH_BOOKS,
   ADD_BOOK,
-  MARK_READ
+  MARK_READ,
+  MARK_BEING_READ
 } from '../actions/types';
 
 /*
@@ -17,6 +18,8 @@ export default function (state = null, action) {
     case ADD_BOOK:
       return action.payload;
     case MARK_READ:
+      return action.payload;
+    case MARK_BEING_READ:
       return action.payload;
   }
   return state;

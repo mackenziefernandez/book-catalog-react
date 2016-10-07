@@ -1,13 +1,12 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import { markRead }  from '../../actions/firebase_actions';
-// import store from '../../stores/index';
-// import actions from '../../actions/index';
+import { markRead, markBeingRead }  from '../../actions/firebase_actions';
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    markRead
+    markRead,
+    markBeingRead
   }, dispatch);
 }
 
@@ -21,13 +20,14 @@ class Book extends React.Component {
   }
 
   render() {
-    const { title, authorFirst, authorLast, length, imageURL, status } = this.props;
+    const { title, authorFirst, authorLast, length, imageURL, status, beingRead } = this.props;
     return (
       <div className='book'>
         <img className="bookCoverList" src={imageURL} />
         <div>
           {authorFirst} {authorLast}
           {!status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.markRead(this.props.id)}>Mark as read</button>}
+          {!beingRead && !status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.props.markBeingRead(this.props.id)}>Reading</button>}
         </div>
       </div>
 		)

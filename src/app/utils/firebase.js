@@ -143,6 +143,21 @@ var FireBaseTools = {
   },
 
   /**
+   * Updates book status for a given book id (Promise)
+   * @returns {Promise}
+   */
+  markBeingRead: (id) => {
+    return firebaseDb.ref('books').child(id).update({ beingRead: true }).then(() => {
+      return {};
+    }).catch(error => {
+      return {
+        errorCode: error.code,
+        errorMessage: error.message
+      }
+    });
+  },
+
+  /**
    * Log the user in using email and password
    *
    * @param user

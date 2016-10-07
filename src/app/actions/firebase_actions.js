@@ -7,6 +7,7 @@ import {
   FETCH_BOOKS,
   ADD_BOOK,
   MARK_READ,
+  MARK_BEING_READ,
   UPDATE_FIREBASE_USER,
   CHANGE_FIREBASE_USER_PASSWORD,
   FIREBASE_PASSWORD_RESET_EMAIL,
@@ -66,6 +67,14 @@ export function markRead(bookId) {
   const request = FireBaseTools.markRead(bookId);
   return {
     type: MARK_READ,
+    payload: request
+  }
+}
+
+export function markBeingRead(bookId) {
+  const request = FireBaseTools.markBeingRead(bookId);
+  return {
+    type: MARK_BEING_READ,
     payload: request
   }
 }
