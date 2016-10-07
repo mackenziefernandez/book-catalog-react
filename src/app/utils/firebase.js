@@ -132,7 +132,7 @@ var FireBaseTools = {
 
     const dateFinished =  `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
 
-    return firebaseDb.ref('books').child(id).update({ dateFinished: dateFinished, status: true }).then(() => {
+    return firebaseDb.ref('books').child(id).update({ dateFinished: dateFinished, status: true, beingRead: null }).then(() => {
       return {};
     }).catch(error => {
       return {

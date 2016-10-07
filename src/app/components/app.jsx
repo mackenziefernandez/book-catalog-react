@@ -51,6 +51,7 @@ class App extends Component {
           <li><Link to="/add"> Add</Link></li>
           <li><Link to="/stats"> Stats</Link></li>
           <li><Link to="/unread"> Unread Books</Link></li>
+          <li><Link to="/progress"> In Progress</Link></li>
         </ul>
       )
     } else {

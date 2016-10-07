@@ -11,6 +11,7 @@ import ResetPassword from './components/user/reset_password';
 import AddBook from './components/admin/add_book';
 import Stats from './components/admin/stats';
 import UnreadBooks from './components/admin/unread_books';
+import InProgress from './components/admin/in_progress';
 
 
 export default (
@@ -24,6 +25,7 @@ export default (
     <Route path="/add" component={AddBook}/>
     <Route path="/stats" component={Stats}/>
     <Route path="/unread" component={UnreadBooks}/>
+    <Route path="/progress" component={InProgress}/>
   </Route>
 
 );
