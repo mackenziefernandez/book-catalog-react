@@ -47,12 +47,15 @@ class Stats extends Component {
     const unread = Object.filter(this.props.books, book => book.status === false);
     const numUnread = Object.keys(unread).length;
     const numBooks = Object.keys(this.props.books).length;
+    const numRead = numBooks - numUnread;
     return (
       <div className="col-md-6">
         <h2>Book Stats Page!</h2>
         <p>{numBooks} total books</p>
         <p>{numUnread} unread books</p>
         <p>{(((numBooks - numUnread)/numBooks)*100).toFixed(3)}% of books read</p>
+        <h2>Goal: Get to 80% books read</h2>
+        <p>{(numBooks*.8 - numRead).toFixed(0)} books to go!</p>
       </div>
     )
   }
