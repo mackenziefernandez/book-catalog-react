@@ -5,8 +5,17 @@
 .book {
   padding: 1vw;
 }
-.bookCoverList {
+.bookCover {
   max-height: 200px;
   min-height: 200px;
   width: auto;
+
+  &.hover {
+    opacity: 0.4;
+  }
+}
+.bookInfo {
+  position: absolute;
+  margin-top: -200px;
+  max-width: 130px;  
 }

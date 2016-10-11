@@ -13,6 +13,9 @@ function mapDispatchToProps(dispatch) {
 class Book extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      show: false
+    }
   }
 
   markRead(id) {
@@ -22,13 +25,14 @@ class Book extends React.Component {
   render() {
     const { title, authorFirst, authorLast, length, imageURL, status, beingRead } = this.props;
     return (
-      <div className='book'>
-        <img className="bookCoverList" src={imageURL} />
-        <div>
+      <div className='book' onMouseEnter={() => this.setState({ show: true })}
+                                onMouseLeave={() => this.setState({ show: false })}>
+        <img className={`bookCover ${this.state.show ? 'hover' : ''}`} src={imageURL} />
+        {this.state.show && <div className='bookInfo'>
           {authorFirst} {authorLast}
           {!status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.markRead(this.props.id)}>Mark as read</button>}
           {!beingRead && !status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.props.markBeingRead(this.props.id)}>Reading</button>}
-        </div>
+        </div>}
       </div>
 		)
 	}
