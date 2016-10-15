@@ -49,7 +49,7 @@ class Stats extends Component {
     const numBooks = Object.keys(this.props.books).length;
     const numRead = numBooks - numUnread;
     return (
-      <div className="col-md-6">
+      <div>
         <h2>Book Stats Page!</h2>
         <p>{numBooks} total books</p>
         <p>{numUnread} unread books</p>

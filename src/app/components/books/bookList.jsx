@@ -1,24 +1,22 @@
 import React from 'react';
 import Book from './book';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {fetchBooks}  from '../../actions/firebase_actions';
 import ScrollToTop from 'react-scroll-up';
 require('../../styles/book.scss');
 
-class BookList extends React.Component {
+export default class BookList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.fetchBooks();
-    this.state = {
-      message: ''
-    }
+    // this.props.fetchBooks();
+    // this.state = {
+    //   message: ''
+    // }
   }
 
   render() {
+    debugger;
     return (
       <div className='bookList'>
-        {this.props.books ? this.getBooks() : "loading ..."}
+        { this.props.books && this.getBooks() }
         <ScrollToTop showUnder={260}>
           <span>Scroll To Top</span>
         </ScrollToTop>
@@ -38,15 +36,3 @@ class BookList extends React.Component {
   }
 
 }
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchBooks}, dispatch);
-}
-
-
-function mapStateToProps(state) {
-  return {books: state.books};
-}
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookList);

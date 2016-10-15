@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {fetchBooks}  from '../../actions/firebase_actions';
 import {fetchUser, updateUser}  from '../../actions/firebase_actions';
 import Loading  from '../helpers/loading';
-import Book from '../books/book';
+import BookList from '../books/bookList';
 
 class InProgress extends Component {
 
@@ -13,9 +13,6 @@ class InProgress extends Component {
     super(props);
     this.props.fetchUser();
     this.props.fetchBooks();
-    this.state = {
-      message: ''
-    }
   }
 
   render() {
@@ -30,38 +27,21 @@ class InProgress extends Component {
 
     const beingRead = Object.filter(this.props.books, book => book.beingRead === true);
     return (
-      <div className="col-md-6">
+      <div>
         <h2>Books In Progress</h2>
         <p>{ Object.keys(beingRead).length } books being read</p>
-        { this.getBooks(beingRead) }
+        <BookList books={beingRead} />
       </div>
     )
   }
-
-  getBooks(books) {
-    let bookArray = [];
-    for (var bookKey in books) {
-      const book = books[bookKey];
-      bookArray.push(
-        <Book { ...book } key={ bookKey } id={ bookKey } />
-      );
-    }
-    return bookArray;
-  }
-
-
-
 }
-
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({fetchUser, updateUser, fetchBooks}, dispatch);
 }
 
-
 function mapStateToProps(state) {
   return {currentUser: state.currentUser, books: state.books};
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(InProgress);
