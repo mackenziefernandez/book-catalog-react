@@ -17,5 +17,9 @@
 .bookInfo {
   position: absolute;
   margin-top: -200px;
-  max-width: 130px;  
+  max-width: 125px;
+
+  &.behind {
+    z-index: -10;
+  }
 }
