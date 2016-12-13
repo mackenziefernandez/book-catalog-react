@@ -28,11 +28,11 @@ class Book extends React.Component {
       <div className='book' onMouseEnter={() => this.setState({ show: true })}
                                 onMouseLeave={() => this.setState({ show: false })}>
         <img className={`bookCover ${this.state.show ? 'hover' : ''}`} src={imageURL} />
-        {<div className={`bookInfo ${this.state.show ? '' : 'behind'}`}>
-          {authorFirst} {authorLast}
+        <div className={`bookInfo ${this.state.show ? '' : 'behind'}`}>
+          {title} by {authorFirst} {authorLast}
           {!status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.markRead(this.props.id)}>Mark as read</button>}
           {!beingRead && !status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.props.markBeingRead(this.props.id)}>Reading</button>}
-        </div>}
+        </div>
       </div>
 		)
 	}

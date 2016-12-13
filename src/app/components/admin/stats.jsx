@@ -52,10 +52,12 @@ class Stats extends Component {
       <div>
         <h2>Book Stats Page!</h2>
         <p>{numBooks} total books</p>
-        <p>{numUnread} unread books</p>
+        <p>{numUnread} unread books, {numBooks - numUnread} books completed</p>
         <p>{(((numBooks - numUnread)/numBooks)*100).toFixed(3)}% of books read</p>
         <h2>Goal: Get to 80% books read</h2>
         <p>{(numBooks*.8 - numRead).toFixed(0)} books to go!</p>
+        <h2>Goal: Get to 1000 books read</h2>
+        <p>{(1000 - numRead).toFixed(0)} books to go!</p>
       </div>
     )
   }

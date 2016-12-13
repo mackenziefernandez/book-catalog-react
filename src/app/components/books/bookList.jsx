@@ -6,14 +6,9 @@ require('../../styles/book.scss');
 export default class BookList extends React.Component {
   constructor(props) {
     super(props);
-    // this.props.fetchBooks();
-    // this.state = {
-    //   message: ''
-    // }
   }
 
   render() {
-    debugger;
     return (
       <div className='bookList'>
         { this.props.books && this.getBooks() }
