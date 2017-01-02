@@ -1,5 +1,6 @@
 import {
   FETCH_BOOKS,
+  FETCH_GOOGLE_API_BOOK_INFO,
   ADD_BOOK,
   MARK_READ,
   MARK_BEING_READ
@@ -14,6 +15,10 @@ See `initialstate.js` for a clear view of what it looks like!
 export default function (state = null, action) {
   switch (action.type) {
     case FETCH_BOOKS:
+      console.log('fetch books action payload', action);
+      return action.payload;
+    case FETCH_GOOGLE_API_BOOK_INFO:
+      console.log('fetch google books action', action);
       return action.payload;
     case ADD_BOOK:
       return action.payload;

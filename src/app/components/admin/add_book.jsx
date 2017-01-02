@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {resetPasswordEmail} from '../../actions/firebase_actions';
+import {fetchGoogleAPIBookInfo} from '../../actions/firebase_actions';
 
 class AddBook extends Component {
   constructor(props) {
@@ -18,52 +18,29 @@ class AddBook extends Component {
       imageUrl: ''
     }
     this.onFormSubmit = this.onFormSubmit.bind(this);
-
   }
 
   onFormSubmit(event) {
     event.preventDefault();
     var email = this.refs.email.value;
     this.props.addBook(email).then(data => {
-
       if (data.payload.errorCode)
         this.setState({message: data.payload.errorMessage})
       else
         this.setState({message: "Please see your email!"})
-
     });
-
   }
 
   setISBN = event => this.setState({isbn:event.target.value});
 
   getBookInfo = () => {
-    const isbn = this.state.isbn;
-    console.log("searching the ISBN: " + isbn);
-    // var url = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn;//9780765356130';
-    //
-    // $http({ method: 'GET', url }).then(function successCallback(response) {
-    //   if (response.data.totalItems == 0) {
-    //     console.log("No books came back");
-    //     // Add iframe to screen with amazon search results
-    //     current.amazonURL = "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords="+isbn;
-    //   } else {
-    //     var volumeInfo = response.data.items[0].volumeInfo;
-    //     if (typeof current.title == 'undefined') {current.title = volumeInfo.title;}
-    //     console.log(volumeInfo);
-    //     if (typeof current.authorFirst == 'undefined') {current.authorFirst = _.initial(volumeInfo.authors[0].split(" ")).join(" ");}
-    //     if (typeof current.authorLast == 'undefined') {current.authorLast = _.last(volumeInfo.authors[0].split(" "));}
-    //     if (typeof current.length == 'undefined') {current.length = volumeInfo.pageCount;}
-    //     if (typeof current.imageURL == 'undefined') {current.imageURL = volumeInfo.imageLinks.thumbnail;}
-    //   }
-    // }, function errorCallback(response) {
-    //   console.log(response);
-    // });
+    const bookInfo = this.props.fetchGoogleAPIBookInfo(this.state.isbn);
+    console.log('book info response', bookInfo);
+    const amazonUrl = `http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${this.state.isbn}`;
   }
 
   render() {
     return (
-
       <div className="col-md-4">
         <form role="form" onSubmit={this.onFormSubmit}>
           <h4>
@@ -125,14 +102,13 @@ class AddBook extends Component {
             className="btn btn-default btn-block">Save</button>
         </form>
       </div>
-
     )
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    resetPasswordEmail
+    fetchGoogleAPIBookInfo
   }, dispatch);
 }
 

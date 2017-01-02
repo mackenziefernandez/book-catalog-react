@@ -5,7 +5,7 @@ export const firebaseApp = firebase.initializeApp(FIREBASE_CONFIG);
 export const firebaseAuth = firebaseApp.auth();
 export const firebaseDb = firebaseApp.database();
 
-var FireBaseTools = {
+const FireBaseTools = {
 
   /**
    * Return an instance of a firebase auth provider based on the provider string.
@@ -242,6 +242,30 @@ var FireBaseTools = {
         errorCode: error.code,
         errorMessage: error.message
       }
+    });
+  },
+
+  /**
+   * Get the Google Books database info.
+   *    
+   * @param isbn {string}
+   * @returns {!object|object}
+   */
+  fetchGoogleAPIBookInfo: isbn => {
+    return new Promise((resolve, reject) => {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${9780439708180}`;// isbn;
+    const apiRequest = new XMLHttpRequest();
+    apiRequest.open('GET', url);
+    apiRequest.responseType = 'json';
+    apiRequest.onload = (response) => {
+      resolve(response.currentTarget.response);
+    };
+    apiRequest.onerror = reject;
+    apiRequest.send();
+  }).then(results => {
+      return results;
+    }).catch(error => {
+      // welp, got yurself an error
     });
   },
 
