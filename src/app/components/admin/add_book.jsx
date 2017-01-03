@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchGoogleAPIBookInfo} from '../../actions/firebase_actions';
+import {parseAuthor} from '../../utils/parseAuthor';
 
 class AddBook extends Component {
   constructor(props) {
@@ -34,8 +35,22 @@ class AddBook extends Component {
   setISBN = event => this.setState({isbn:event.target.value});
 
   getBookInfo = () => {
-    const bookInfo = this.props.fetchGoogleAPIBookInfo(this.state.isbn);
-    console.log('book info response', bookInfo);
+    this.props.fetchGoogleAPIBookInfo(this.state.isbn).then(({payload, type}) => {
+      const {totalItems, items} = payload;
+      if (totalItems != 0) {
+        const volumeInfo = items[0].volumeInfo;
+        const author = volumeInfo.authors[0];
+        this.setState({
+          title: volumeInfo.title || '',
+          authorFirst: parseAuthor(author)[0] || '',
+          authorLast: parseAuthor(author)[1] || '',
+          length: volumeInfo.pageCount || ''//,
+          // imageUrl: volumeInfo.imageLinks.thumbnail || ''
+        });
+      } else {
+        this.setState({message: 'Google could not find any results'});
+      }
+    });
     const amazonUrl = `http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${this.state.isbn}`;
   }
 
