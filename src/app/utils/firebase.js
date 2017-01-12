@@ -127,7 +127,6 @@ const FireBaseTools = {
    * @returns {Promise}
    */
   markRead: (id) => {
-    console.log('trying to update book status for id: ', id);
     const today = new Date();
 
     const dateFinished =  `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
@@ -253,7 +252,7 @@ const FireBaseTools = {
    */
   fetchGoogleAPIBookInfo: isbn => {
     return new Promise((resolve, reject) => {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${9780439708180}`;// isbn;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${isbn}`;
     const apiRequest = new XMLHttpRequest();
     apiRequest.open('GET', url);
     apiRequest.responseType = 'json';

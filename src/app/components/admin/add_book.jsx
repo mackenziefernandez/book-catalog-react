@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchGoogleAPIBookInfo} from '../../actions/firebase_actions';
+import {addBook, fetchGoogleAPIBookInfo} from '../../actions/firebase_actions';
 import {parseAuthor} from '../../utils/parseAuthor';
 
 class AddBook extends Component {
@@ -16,19 +16,22 @@ class AddBook extends Component {
       status: false,
       format: 'paperback',
       length: '',
-      imageUrl: ''
+      imageURL: ''
     }
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-    var email = this.refs.email.value;
-    this.props.addBook(email).then(data => {
+    const book = this.state;
+    delete book.message;
+    book.dateAdded = new Date().toISOString().split('T')[0];
+    book.dateFinished = book.finished ? new Date().toISOString().split('T')[0] : '';
+    this.props.addBook(book).then(data => {
       if (data.payload.errorCode)
         this.setState({message: data.payload.errorMessage})
       else
-        this.setState({message: "Please see your email!"})
+        this.setState({message: "Book successfully added!"})
     });
   }
 
@@ -44,14 +47,14 @@ class AddBook extends Component {
           title: volumeInfo.title || '',
           authorFirst: parseAuthor(author)[0] || '',
           authorLast: parseAuthor(author)[1] || '',
-          length: volumeInfo.pageCount || ''//,
-          // imageUrl: volumeInfo.imageLinks.thumbnail || ''
+          length: volumeInfo.pageCount || '',
+          imageURL: volumeInfo.imageLinks.thumbnail || ''
         });
       } else {
-        this.setState({message: 'Google could not find any results'});
+        const amazonUrl = `http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${this.state.isbn}`;
+        this.setState({message: `Google could not find any results, try ${amazonUrl}`});
       }
     });
-    const amazonUrl = `http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${this.state.isbn}`;
   }
 
   render() {
@@ -123,7 +126,8 @@ class AddBook extends Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchGoogleAPIBookInfo
+    fetchGoogleAPIBookInfo,
+    addBook
   }, dispatch);
 }
 
