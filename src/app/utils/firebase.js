@@ -129,7 +129,7 @@ const FireBaseTools = {
   markRead: (id) => {
     const today = new Date();
 
-    const dateFinished =  `${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${('0' + today.getDate()).slice(-2)}`;
+    const dateFinished = new Date().toISOString().split('T')[0];
 
     return firebaseDb.ref('books').child(id).update({ dateFinished: dateFinished, status: true, beingRead: null }).then(() => {
       return {};
