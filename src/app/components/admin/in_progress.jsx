@@ -22,22 +22,32 @@ class InProgress extends Component {
 
   getBooks = (booklist) => {
     let bookArray = [];
+    let totalPages = 0;
+    let readPages = 0;
     for (const key in booklist) {
       const book = this.props.books[key];
+      totalPages += book.length;
+      readPages += this.props.bookmarks[key];
       bookArray.push(
         <div>
           <Book { ...book } key={ key } id={ key } />
           <div className='bookList'>
-            <input id={`bookmark${key}`} name={`bookmark${key}`} 
+            <input id={`bookmark${key}`} name={`bookmark${key}`} type='number'
             defaultValue={this.props.bookmarks[key]} onChange={ this.onChangeBookmark } 
             onBlur={() => { 
               this.props.bookmark(key, this.state.inputVal); 
               this.setState({}); }} />
+              <p>/{book.length} ({(this.props.bookmarks[key]/book.length * 100).toFixed()}%)</p>
           </div>
         </div>
       );
     }
-    return bookArray;
+    return (
+      <div>
+        <div>{totalPages} ({totalPages - readPages} pages to go)</div>
+        <div className='bookList'>{bookArray}</div>
+      </div>
+      );
   }
 
   render() {

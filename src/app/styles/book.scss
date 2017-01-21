@@ -1,6 +1,10 @@
 .bookList {
   display: flex;
   flex-wrap: wrap;
+
+  input {
+    width: 20%;
+  }
 }
 .book {
   padding: 1vw;
