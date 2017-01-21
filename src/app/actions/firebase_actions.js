@@ -5,6 +5,8 @@ import {
   LOGIN_FIREBASE_USER,
   FETCH_FIREBASE_USER,
   FETCH_BOOKS,
+  FETCH_BOOKMARKS,
+  BOOKMARK,
   FETCH_GOOGLE_API_BOOK_INFO,
   ADD_BOOK,
   MARK_READ,
@@ -56,6 +58,14 @@ export function fetchBooks() {
   }
 }
 
+export function fetchBookmarks() {
+  const request = FireBaseTools.fetchBookmarks();
+  return {
+    type: FETCH_BOOKMARKS,
+    payload: request
+  }
+}
+
 export function fetchGoogleAPIBookInfo(isbn) {
   const request = FireBaseTools.fetchGoogleAPIBookInfo(isbn);
   return {
@@ -84,6 +94,14 @@ export function markBeingRead(bookId) {
   const request = FireBaseTools.markBeingRead(bookId);
   return {
     type: MARK_BEING_READ,
+    payload: request
+  }
+}
+
+export function bookmark(bookId, page) {
+  const request = FireBaseTools.bookmark(bookId, page);
+  return {
+    type: BOOKMARK,
     payload: request
   }
 }

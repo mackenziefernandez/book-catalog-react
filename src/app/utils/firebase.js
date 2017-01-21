@@ -107,6 +107,20 @@ const FireBaseTools = {
     })
   },
 
+    /**
+   * Retrieve the users books (Promise)
+   * @returns {Promise}
+   */
+  fetchBookmarks: () => {
+    return new Promise((resolve, reject) => {
+      const bookSub = firebaseDb.ref('bookmarks').on("value", books => {
+        resolve(books.val());
+      }, error => {
+        reject(error);
+      })
+    })
+  },
+
   /**
    * Adds book to books endpoint (Promise)
    * @returns {Promise}
@@ -148,6 +162,23 @@ const FireBaseTools = {
   markBeingRead: (id) => {
     return firebaseDb.ref('books').child(id).update({ beingRead: true }).then(() => {
       return {};
+    }).catch(error => {
+      return {
+        errorCode: error.code,
+        errorMessage: error.message
+      }
+    });
+  },
+
+  /**
+   * Updates book progress for a given book id (Promise)
+   * @returns {Promise}
+   */
+  bookmark: (id, location) => {
+    const bookmark = {};
+    bookmark[id] = location;
+    return firebaseDb.ref('bookmarks').update(bookmark).then(() => {
+      resolve();
     }).catch(error => {
       return {
         errorCode: error.code,

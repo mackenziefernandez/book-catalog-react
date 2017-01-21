@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import firebase from '../../utils/firebase';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchBooks}  from '../../actions/firebase_actions';
-import {fetchUser, updateUser}  from '../../actions/firebase_actions';
+import {fetchBooks, fetchUser, updateUser}  from '../../actions/firebase_actions';
 import Loading  from '../helpers/loading';
 import BookList from '../books/bookList';
 

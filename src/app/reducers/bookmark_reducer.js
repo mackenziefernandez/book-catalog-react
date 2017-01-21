@@ -1,9 +1,6 @@
 import {
-  FETCH_BOOKS,
-  FETCH_GOOGLE_API_BOOK_INFO,
-  ADD_BOOK,
-  MARK_READ,
-  MARK_BEING_READ
+  FETCH_BOOKMARKS,
+  BOOKMARK,
 } from '../actions/types';
 
 /*
@@ -14,15 +11,9 @@ See `initialstate.js` for a clear view of what it looks like!
 
 export default function (state = null, action) {
   switch (action.type) {
-    case FETCH_BOOKS:
+    case FETCH_BOOKMARKS:
       return action.payload;
-    case FETCH_GOOGLE_API_BOOK_INFO:
-      return action.payload;
-    case ADD_BOOK:
-      return action.payload;
-    case MARK_READ:
-      return action.payload;
-    case MARK_BEING_READ:
+    case BOOKMARK:
       return action.payload;
   }
   return state;
