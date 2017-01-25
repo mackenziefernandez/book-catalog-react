@@ -178,7 +178,7 @@ const FireBaseTools = {
     const bookmark = {};
     bookmark[id] = Number(location);
     return firebaseDb.ref('bookmarks').update(bookmark).then(() => {
-      resolve();
+      return bookmark;
     }).catch(error => {
       return {
         errorCode: error.code,
