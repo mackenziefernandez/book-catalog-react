@@ -51,10 +51,11 @@ class App extends Component {
           <li><Link to="/stats"> Stats</Link></li>
           <li><Link to="/unread"> Unread Books</Link></li>
           <li><Link to="/progress"> In Progress</Link></li>
+          <li><Link to="/wishlist"> Wishlist</Link></li>
         </ul>
       )
     } else {
-      return;
+      <ul><li><Link to="/wishlist"> Wishlist</Link></li></ul>;
     }
   }
 

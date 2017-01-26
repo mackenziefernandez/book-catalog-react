@@ -121,6 +121,20 @@ const FireBaseTools = {
     })
   },
 
+    /**
+   * Retrieve the users books (Promise)
+   * @returns {Promise}
+   */
+  fetchWishlist: () => {
+    return new Promise((resolve, reject) => {
+      const bookSub = firebaseDb.ref('wishlist').on("value", books => {
+        resolve(books.val());
+      }, error => {
+        reject(error);
+      })
+    })
+  },
+
   /**
    * Adds book to books endpoint (Promise)
    * @returns {Promise}

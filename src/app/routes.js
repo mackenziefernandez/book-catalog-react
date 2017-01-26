@@ -12,6 +12,7 @@ import AddBook from './components/admin/add_book';
 import Stats from './components/admin/stats';
 import UnreadBooks from './components/admin/unread_books';
 import InProgress from './components/admin/in_progress';
+import Wishlist from './components/wishlist';
 
 
 export default (
@@ -26,6 +27,7 @@ export default (
     <Route path="/stats" component={Stats}/>
     <Route path="/unread" component={UnreadBooks}/>
     <Route path="/progress" component={InProgress}/>
+    <Route path="/wishlist" component={Wishlist}/>
   </Route>
 
 );

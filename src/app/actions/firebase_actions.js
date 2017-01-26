@@ -6,6 +6,7 @@ import {
   FETCH_FIREBASE_USER,
   FETCH_BOOKS,
   FETCH_BOOKMARKS,
+  FETCH_WISHLIST,
   BOOKMARK,
   FETCH_GOOGLE_API_BOOK_INFO,
   ADD_BOOK,
@@ -63,6 +64,14 @@ export function fetchBookmarks() {
   const request = FireBaseTools.fetchBookmarks();
   return {
     type: FETCH_BOOKMARKS,
+    payload: request
+  }
+}
+
+export function fetchWishlist() {
+  const request = FireBaseTools.fetchWishlist();
+  return {
+    type: FETCH_WISHLIST,
     payload: request
   }
 }
