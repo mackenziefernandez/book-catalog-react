@@ -10,8 +10,6 @@ See `initialstate.js` for a clear view of what it looks like!
 */
 
 export default function (state = null, action) {
-  console.log('state', state);
-  console.log('action', action);
   switch (action.type) {
     case FETCH_BOOKMARKS:
       return action.payload;
