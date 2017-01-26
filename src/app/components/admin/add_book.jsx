@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {addBook, fetchGoogleAPIBookInfo} from '../../actions/firebase_actions';
+import {addBook, addToWishlist, fetchGoogleAPIBookInfo} from '../../actions/firebase_actions';
 import {parseAuthor} from '../../utils/parseAuthor';
 
 class AddBook extends Component {
@@ -25,14 +25,24 @@ class AddBook extends Component {
     event.preventDefault();
     const book = this.state;
     delete book.message;
-    book.dateAdded = new Date().toISOString().split('T')[0];
-    book.dateFinished = book.finished ? new Date().toISOString().split('T')[0] : '';
-    this.props.addBook(book).then(data => {
-      if (data.payload.errorCode)
-        this.setState({message: data.payload.errorMessage})
-      else
-        this.setState({message: "Book successfully added!"})
-    });
+    if (this.refs.wishlist.checked) {
+      delete book.status;
+      this.props.addToWishlist(book).then(data => {
+        if (data.payload.errorCode)
+          this.setState({message: data.payload.errorMessage})
+        else
+          this.setState({message: "Book successfully added!"})
+      });
+    } else {
+      book.dateAdded = new Date().toISOString().split('T')[0];
+      book.dateFinished = book.finished ? new Date().toISOString().split('T')[0] : '';
+      this.props.addBook(book).then(data => {
+        if (data.payload.errorCode)
+          this.setState({message: data.payload.errorMessage})
+        else
+          this.setState({message: "Book successfully added!"})
+      });
+    }
   }
 
   setISBN = event => this.setState({isbn:event.target.value});
@@ -97,24 +107,19 @@ class AddBook extends Component {
                 </div>
                 <div>
                   <input
-                    id="status"
-                    type="checkbox"
-                    value={this.state.status} />
-                  <label htmlFor="status">finished</label>
-                  <input
                     type="radio"
-                    ng-model="editBookCtrl.format"
                     value="paperback" />
                   <label>paperback</label>
                   <input
                     type="radio"
-                    ng-model="editBookCtrl.format"
                     value="hardback" />
                   <label>hardback</label>
                 </div>
               </div>
             </div>
           </div>
+          <input id="wishlist" ref="wishlist" type="checkbox"/>
+          <label htmlFor="wishlist">Wishlist?</label>
           <button
             type="submit"
             className="btn btn-default btn-block">Save</button>
@@ -127,7 +132,8 @@ class AddBook extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     fetchGoogleAPIBookInfo,
-    addBook
+    addBook,
+    addToWishlist
   }, dispatch);
 }
 

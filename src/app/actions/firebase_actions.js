@@ -9,6 +9,7 @@ import {
   BOOKMARK,
   FETCH_GOOGLE_API_BOOK_INFO,
   ADD_BOOK,
+  ADD_TO_WISHLIST,
   MARK_READ,
   MARK_BEING_READ,
   UPDATE_FIREBASE_USER,
@@ -78,6 +79,14 @@ export function addBook(book) {
   const request = FireBaseTools.addBook(book);
   return {
     type: ADD_BOOK,
+    payload: request
+  }
+}
+
+export function addToWishlist(book) {
+  const request = FireBaseTools.addToWishlist(book);
+  return {
+    type: ADD_TO_WISHLIST,
     payload: request
   }
 }

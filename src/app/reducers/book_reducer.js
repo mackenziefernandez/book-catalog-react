@@ -2,6 +2,7 @@ import {
   FETCH_BOOKS,
   FETCH_GOOGLE_API_BOOK_INFO,
   ADD_BOOK,
+  ADD_TO_WISHLIST,
   MARK_READ,
   MARK_BEING_READ
 } from '../actions/types';
@@ -19,7 +20,11 @@ export default function (state = null, action) {
     case FETCH_GOOGLE_API_BOOK_INFO:
       return action.payload;
     case ADD_BOOK:
-      return action.payload;
+      const newBookState = {};
+      newBookState[action.payload[1]] = action.payload[0];
+      return Object.assign({}, state, newBookState);
+    case ADD_TO_WISHLIST:
+      return state;
     case MARK_READ:
       return action.payload;
     case MARK_BEING_READ:

@@ -126,7 +126,22 @@ const FireBaseTools = {
    * @returns {Promise}
    */
   addBook: (book) => {
-    return firebaseDb.ref('books').push(book).then(book => {
+    return firebaseDb.ref('books').push(book).then(bookResponse => {
+      return [book, bookResponse.key];
+    }).catch(error => {
+      return {
+        errorCode: error.code,
+        errorMessage: error.message
+      }
+    });
+  },
+
+    /**
+   * Adds book to wishlist endpoint (Promise)
+   * @returns {Promise}
+   */
+  addToWishlist: (book) => {
+    return firebaseDb.ref('wishlist').push(book).then(book => {
       return book;
     }).catch(error => {
       return {
