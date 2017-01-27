@@ -10,6 +10,10 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
+function mapStateToProps(state) {
+  return { currentUser: state.currentUser };
+}
+
 class Book extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +26,15 @@ class Book extends React.Component {
     this.props.markRead(id);
   }
 
+  getBookActions(status, beingRead) {
+    return (
+      <div>
+        {!status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.markRead(this.props.id)}>Mark as read</button>}
+        {!beingRead && !status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.props.markBeingRead(this.props.id)}>Reading</button>}
+      </div>
+    )
+  }
+
   render() {
     const { title, authorFirst, authorLast, length, imageURL, status, beingRead } = this.props;
     return (
@@ -30,8 +43,7 @@ class Book extends React.Component {
         <img className={`bookCover ${this.state.show ? 'hover' : ''}`} src={imageURL} />
         <div className={`bookInfo ${this.state.show ? '' : 'behind'}`}>
           {title} by {authorFirst} {authorLast}
-          {!status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.markRead(this.props.id)}>Mark as read</button>}
-          {!beingRead && !status && <button type="submit" className="btn btn-default btn-block" onClick={() => this.props.markBeingRead(this.props.id)}>Reading</button>}
+          { this.props.currentUser && this.props.currentUser.uid == 'zjZzerHEdqSXFwyi0QOH16hdoNu2' && this.getBookActions(status, beingRead)}
         </div>
       </div>
 		)
@@ -39,4 +51,4 @@ class Book extends React.Component {
 
 }
 
-export default connect(null, mapDispatchToProps)(Book);
+export default connect(mapStateToProps, mapDispatchToProps)(Book);
