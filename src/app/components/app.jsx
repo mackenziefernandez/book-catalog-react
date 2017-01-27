@@ -55,7 +55,11 @@ class App extends Component {
         </ul>
       )
     } else {
-      <ul><li><Link to="/wishlist"> Wishlist</Link></li></ul>;
+      return (
+        <ul className="nav navbar-nav">
+          <li><Link to="/wishlist"> Wishlist</Link></li>
+        </ul>
+      )
     }
   }
 
