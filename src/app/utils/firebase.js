@@ -171,11 +171,13 @@ const FireBaseTools = {
    */
   markRead: (id) => {
     const today = new Date();
-
     const dateFinished = new Date().toISOString().split('T')[0];
-
     return firebaseDb.ref('books').child(id).update({ dateFinished: dateFinished, status: true, beingRead: null }).then(() => {
-      return {};
+      const bookmark = {};
+      bookmark[id] = null;
+      return firebaseDb.ref('bookmarks').update(bookmark).then(() => {
+        return {};
+      });
     }).catch(error => {
       return {
         errorCode: error.code,
