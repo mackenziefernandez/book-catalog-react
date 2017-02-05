@@ -173,9 +173,7 @@ const FireBaseTools = {
     const today = new Date();
     const dateFinished = new Date().toISOString().split('T')[0];
     return firebaseDb.ref('books').child(id).update({ dateFinished: dateFinished, status: true, beingRead: null }).then(() => {
-      const bookmark = {};
-      bookmark[id] = null;
-      return firebaseDb.ref('bookmarks').update(bookmark).then(() => {
+      return firebaseDb.ref('bookmarks').update({ [id]: null }).then(() => {
         return {};
       });
     }).catch(error => {
@@ -192,7 +190,9 @@ const FireBaseTools = {
    */
   markBeingRead: (id) => {
     return firebaseDb.ref('books').child(id).update({ beingRead: true }).then(() => {
-      return {};
+      return firebaseDb.ref('bookmarks').update({ [id]: 0 }).then(() => {
+        return {};
+      });
     }).catch(error => {
       return {
         errorCode: error.code,
@@ -206,8 +206,7 @@ const FireBaseTools = {
    * @returns {Promise}
    */
   bookmark: (id, location) => {
-    const bookmark = {};
-    bookmark[id] = Number(location);
+    const bookmark = {[id]: Number(location)};
     return firebaseDb.ref('bookmarks').update(bookmark).then(() => {
       return bookmark;
     }).catch(error => {
