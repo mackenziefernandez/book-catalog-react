@@ -21,6 +21,31 @@ class Stats extends Component {
     return bookArray;
   }
 
+  orderByDate(booksObject) {
+    // convert object into array
+    let sortable=[];
+    for (let key in booksObject) {
+      if(booksObject.hasOwnProperty(key)) {
+        sortable.push([key, new Date(booksObject[key].dateFinished)]); // each item is an array in format [key, value]
+      }
+    }
+
+    // sort items by value
+    sortable.sort(function(a, b)
+    {
+      return a[1]-b[1]; // compare numbers
+    });
+    return this.toObject(sortable, booksObject); // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
+  }
+
+  toObject(arr, booksObject) {
+    let rv = {};
+    for (let i = 0; i < arr.length; ++i) {
+      rv[arr[i][0]] = booksObject[arr[i][0]];
+    }
+    return rv;
+  }
+
   render() {
     if (!this.props.currentUser) {
       return <Loading/>
@@ -49,7 +74,7 @@ class Stats extends Component {
         <h2>Goal: Read 50 books in 2017</h2>
         <p>{numReadThisYear} books read so far ({(50 - numReadThisYear).toFixed(0)} remaining)</p>
         <h2>Books completed this year:</h2>
-        <div>{this.getBooks(readThisYear)}</div>
+        <div>{this.getBooks(this.orderByDate(readThisYear))}</div>
       </div>
     )
   }
