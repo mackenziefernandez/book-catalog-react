@@ -44,6 +44,7 @@ class Book extends React.Component {
         <div className={`bookInfo ${this.state.show ? '' : 'behind'}`}>
           {title} by {authorFirst} {authorLast}
           { this.props.currentUser && this.props.currentUser.uid == 'zjZzerHEdqSXFwyi0QOH16hdoNu2' && this.getBookActions(status, beingRead)}
+          ({ length } pages)
         </div>
       </div>
 		)
