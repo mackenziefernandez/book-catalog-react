@@ -5,7 +5,7 @@ import App from './components/app';
 import HomeIndex from './components/index_home';
 import UserLogin from './components/user/login';
 import UserLogout from './components/user/logout';
-import UserRegister from './components/user/register';
+// import UserRegister from './components/user/register';
 import UserProfile from './components/user/profile';
 import ResetPassword from './components/user/reset_password';
 import AddBook from './components/admin/add_book';
@@ -20,7 +20,6 @@ export default (
     <IndexRoute component={HomeIndex}/>
     <Route path="/login" component={UserLogin}/>
     <Route path="/logout" component={UserLogout}/>
-    <Route path="/register" component={UserRegister}/>
     <Route path="/reset" component={ResetPassword}/>
     <Route path="/profile" component={UserProfile}/>
     <Route path="/add" component={AddBook}/>
@@ -31,3 +30,5 @@ export default (
   </Route>
 
 );
+
+    // <Route path="/register" component={UserRegister}/>

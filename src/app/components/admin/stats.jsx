@@ -46,6 +46,33 @@ class Stats extends Component {
     return rv;
   }
 
+  getWeekNumber() {
+    // Copy date so don't modify original
+    let d = new Date();
+    d.setHours(0,0,0,0);
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setDate(d.getDate() + 4 - (d.getDay()||7));
+    // Get first day of year
+    const yearStart = new Date(d.getFullYear(),0,1);
+    // Calculate full weeks to nearest Thursday
+    const weekNumber = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+    // Return array of year and week number
+    return weekNumber;
+  }
+
+  getISOWeeks() {
+    const y = new Date().getFullYear();
+    var d, isLeap;
+
+    d = new Date(y, 0, 1);
+    isLeap = new Date(y, 1, 29).getMonth() === 1;
+
+    //check for a Jan 1 that's a Thursday or a leap year that has a 
+    //Wednesday jan 1. Otherwise it's 52
+    return d.getDay() === 4 || isLeap && d.getDay() === 3 ? 53 : 52
+  }
+
   render() {
     if (!this.props.currentUser) {
       return <Loading/>
@@ -61,6 +88,7 @@ class Stats extends Component {
     const numBooks = Object.keys(this.props.books).length;
     const numRead = numBooks - numUnread;
     const numReadThisYear = Object.keys(readThisYear).length;
+    
     return (
       <div>
         <h2>Book Stats Page!</h2>
@@ -72,7 +100,8 @@ class Stats extends Component {
         <h2>Goal: Get to 1000 books read</h2>
         <p>{(1000 - numRead).toFixed(0)} books to go!</p>
         <h2>Goal: Read 50 books in 2017</h2>
-        <p>{numReadThisYear} books read so far ({(50 - numReadThisYear).toFixed(0)} remaining)</p>
+        <p>{numReadThisYear} books read so far</p>
+        <p>({(50 - numReadThisYear).toFixed(0)} books remaining with {this.getISOWeeks() - this.getWeekNumber(new Date())} weeks to go)</p>
         <h2>Books completed this year:</h2>
         <div>{this.getBooks(this.orderByDate(readThisYear))}</div>
       </div>
