@@ -44,7 +44,7 @@ class InProgress extends Component {
     }
     return (
       <div>
-        <div>{totalPages} ({totalPages - readPages} pages to go)</div>
+        <div>{totalPages} pages ({totalPages - readPages} to go)</div>
         <div className='bookList'>{bookArray}</div>
       </div>
       );
@@ -63,8 +63,7 @@ class InProgress extends Component {
     const beingRead = Object.filter(this.props.books, book => book.beingRead === true);
     return (
       <div>
-        <h2>Books In Progress</h2>
-        <p>{ Object.keys(beingRead).length } books being read</p>
+        <h2>{ Object.keys(beingRead).length } Book{Object.keys(beingRead).length === 1 ? '' : 's'} In Progress</h2>
         <div className='bookList'>
           {this.props.books && this.props.bookmarks && this.getBooks(beingRead)}
         </div>
