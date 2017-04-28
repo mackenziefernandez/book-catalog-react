@@ -97,8 +97,6 @@ class Stats extends Component {
         <p>{(((numBooks - numUnread)/numBooks)*100).toFixed(3)}% of books read</p>
         <h2>Goal: Keep 80% of books read</h2>
         <p>{(numBooks*.8 - numRead).toFixed(0)} books to go!</p>
-        <h2>Goal: Get to 1000 books read</h2>
-        <p>{(1000 - numRead).toFixed(0)} books to go!</p>
         <h2>Goal: Read 50 books in 2017</h2>
         <p>{numReadThisYear} books read so far</p>
         <p>({(50 - numReadThisYear).toFixed(0)} books remaining with {this.getISOWeeks() - this.getWeekNumber(new Date())} weeks to go)</p>
