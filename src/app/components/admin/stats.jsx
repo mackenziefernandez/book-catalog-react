@@ -83,7 +83,7 @@ class Stats extends Component {
             .reduce( (res, key) => (res[key] = obj[key], res), {} );
 
     const unread = Object.filter(this.props.books, book => book.status === false);
-    const readThisYear = Object.filter(this.props.books, book => new Date(book.dateFinished).getFullYear() === 2017);
+    const readThisYear = Object.filter(this.props.books, book => new Date(book.dateFinished).getFullYear() === 2017 && book.dateFinished != book.dateAdded);
     const numUnread = Object.keys(unread).length;
     const numBooks = Object.keys(this.props.books).length;
     const numRead = numBooks - numUnread;
