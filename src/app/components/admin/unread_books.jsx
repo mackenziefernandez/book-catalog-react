@@ -33,31 +33,14 @@ class UnreadBooks extends Component {
       </div>
     )
   }
-
-  // getBooks(books) {
-  //   let bookArray = [];
-  //   for (var bookKey in books) {
-  //     const book = books[bookKey];
-  //     bookArray.push(
-  //       <BookList { ...books } />
-  //     );
-  //   }
-  //   return bookArray;
-  // }
-
-
-
 }
-
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({fetchUser, updateUser, fetchBooks}, dispatch);
 }
 
-
 function mapStateToProps(state) {
   return {currentUser: state.currentUser, books: state.books};
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(UnreadBooks);

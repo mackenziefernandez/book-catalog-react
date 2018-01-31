@@ -74,6 +74,7 @@ class Stats extends Component {
   }
 
   render() {
+    const thisYear = new Date().getFullYear();
     if (!this.props.currentUser) {
       return <Loading/>
     }
@@ -83,7 +84,7 @@ class Stats extends Component {
             .reduce( (res, key) => (res[key] = obj[key], res), {} );
 
     const unread = Object.filter(this.props.books, book => book.status === false);
-    const readThisYear = Object.filter(this.props.books, book => new Date(book.dateFinished).getFullYear() === 2017 && book.dateFinished != book.dateAdded);
+    const readThisYear = Object.filter(this.props.books, book => new Date(book.dateFinished).getFullYear() === thisYear && book.dateFinished != book.dateAdded);
     const numUnread = Object.keys(unread).length;
     const numBooks = Object.keys(this.props.books).length;
     const numRead = numBooks - numUnread;
@@ -95,9 +96,9 @@ class Stats extends Component {
         <p>{numBooks} total books</p>
         <p>{numUnread} unread books, {numBooks - numUnread} books completed</p>
         <p>{(((numBooks - numUnread)/numBooks)*100).toFixed(3)}% of books read</p>
-        <h2>Goal: Keep 81% of books read</h2>
-        <p>{(numBooks*.81 - numRead).toFixed(0)} books to go!</p>
-        <h2>Goal: Read 50 books in 2017</h2>
+        <h2>Goal: Keep 82% of books read</h2>
+        <p>{(numBooks*.82 - numRead).toFixed(0)} books to go!</p>
+        <h2>{`Goal: Read 50 books in ${thisYear}`}</h2>
         <p>{numReadThisYear} books read so far</p>
         <p>({(50 - numReadThisYear).toFixed(0)} books remaining with {this.getISOWeeks() - this.getWeekNumber(new Date())} weeks to go)</p>
         <h2>Books completed this year:</h2>
