@@ -19,10 +19,11 @@ export default function (state = null, action) {
       return action.payload;
     case FETCH_GOOGLE_API_BOOK_INFO:
       return action.payload;
-    case ADD_BOOK:
+    case ADD_BOOK: {
       const newBookState = {};
       newBookState[action.payload[1]] = action.payload[0];
       return Object.assign({}, state, newBookState);
+    }
     case ADD_TO_WISHLIST:
       return state;
     case MARK_READ:

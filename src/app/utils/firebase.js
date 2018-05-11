@@ -37,7 +37,7 @@ const FireBaseTools = {
    */
   loginWithProvider: (p) => {
     let provider = FireBaseTools.getProvider(p);
-    return firebaseAuth.signInWithPopup(provider).then(function (result) {
+    return firebaseAuth.signInWithPopup(provider).then(function () {
       return firebaseAuth.currentUser;
     }).catch(function (error) {
       return {
@@ -99,7 +99,7 @@ const FireBaseTools = {
    */
   fetchBooks: () => {
     return new Promise((resolve, reject) => {
-      const bookSub = firebaseDb.ref('books').on("value", books => {
+      return firebaseDb.ref('books').on("value", books => {
         resolve(books.val());
       }, error => {
         reject(error);
@@ -113,7 +113,7 @@ const FireBaseTools = {
    */
   fetchBookmarks: () => {
     return new Promise((resolve, reject) => {
-      const bookSub = firebaseDb.ref('bookmarks').on("value", books => {
+      return firebaseDb.ref('bookmarks').on("value", books => {
         resolve(books.val());
       }, error => {
         reject(error);
@@ -127,7 +127,7 @@ const FireBaseTools = {
    */
   fetchWishlist: () => {
     return new Promise((resolve, reject) => {
-      const bookSub = firebaseDb.ref('wishlist').on("value", books => {
+      return firebaseDb.ref('wishlist').on("value", books => {
         resolve(books.val());
       }, error => {
         reject(error);
@@ -170,9 +170,8 @@ const FireBaseTools = {
    * @returns {Promise}
    */
   markRead: (id) => {
-    const today = new Date();
     const dateFinished = new Date().toISOString().split('T')[0];
-    return firebaseDb.ref('books').child(id).update({ dateFinished: dateFinished, status: true, beingRead: null }).then(() => {
+    return firebaseDb.ref('books').child(id).update({ dateFinished, status: true, beingRead: null }).then(() => {
       return firebaseDb.ref('bookmarks').update({ [id]: null }).then(() => {
         return {};
       });
@@ -307,7 +306,7 @@ const FireBaseTools = {
 
   /**
    * Get the Google Books database info.
-   *    
+   *
    * @param isbn {string}
    * @returns {!object|object}
    */
@@ -324,7 +323,7 @@ const FireBaseTools = {
     apiRequest.send();
   }).then(results => {
       return results;
-    }).catch(error => {
+    }).catch(() => {
       // welp, got yurself an error
     });
   },
